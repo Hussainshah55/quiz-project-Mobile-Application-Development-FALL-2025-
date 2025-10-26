@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TodoList & Greeting Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    ul {
+      list-style-type: disc;
+    }
+    input, button {
+      padding: 5px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Greeting Component</h1>
+  <p id="greeting"></p>
+
+  <h1>Todo List</h1>
+  <input type="text" id="taskInput" placeholder="Enter task" />
+  <button id="addTaskBtn">Add Task</button>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    // --- Greeting Component ---
+    function Greeting(name, time) {
+      const greetingEl = document.getElementById("greeting");
+      greetingEl.innerText = `Good ${time}, ${name}!`;
+    }
+
+    // Display greeting for Hussain in the morning
+    Greeting("Hussain", "Morning");
+
+    // --- TodoList Component ---
+    const taskInput = document.getElementById("taskInput");
+    const addTaskBtn = document.getElementById("addTaskBtn");
+    const taskList = document.getElementById("taskList");
+    const tasks = [];
+
+    addTaskBtn.addEventListener("click", () => {
+      const task = taskInput.value.trim();
+      if(task !== "") {
+        tasks.push(task);
+        renderTasks();
+        taskInput.value = ""; // clear input
+      }
+    });
+
+    function renderTasks() {
+      taskList.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerText = task;
+        taskList.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

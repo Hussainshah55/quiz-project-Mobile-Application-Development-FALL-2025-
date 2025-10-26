@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Async Weather Example</title>
+</head>
+<body>
+  <h1>Weather App</h1>
+
+  <input type="text" id="cityInput" placeholder="Enter city name" />
+  <button id="getWeatherBtn">Get Weather</button>
+
+  <p id="result"></p>
+
+  <script>
+    // Async function to get weather
+    async function getWeather(city) {
+      try {
+        const weather = await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            if(city) {
+              resolve(`Weather in ${city} is Sunny ☀️`);
+            } else {
+              reject("City not provided!");
+            }
+          }, 2000); // 2 second delay
+        });
+        return weather;
+      } catch (error) {
+        return `Error: ${error}`;
+      }
+    }
+
+    // DOM Elements
+    const cityInput = document.getElementById("cityInput");
+    const getWeatherBtn = document.getElementById("getWeatherBtn");
+    const result = document.getElementById("result");
+
+    // Button click event
+    getWeatherBtn.addEventListener("click", async () => {
+      const city = cityInput.value.trim();
+      result.innerText = "Fetching weather...";
+      const weather = await getWeather(city);
+      result.innerText = weather;
+    });
+  </script>
+</body>
+</html>
